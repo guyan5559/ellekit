@@ -1,0 +1,23 @@
+name: "*** build for mac ***"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+
+    runs-on: macos-13
+    steps:
+      - name: Checkout
+        run: |
+          set -x
+          git clone --recursive https://github.com/guyan5559/ellekit.git ${{ github.workspace }}
+      - name: Build
+        run: |
+          make all
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ellekit_gy
+          path: |
+            ${{ github.workspace }}/packages
